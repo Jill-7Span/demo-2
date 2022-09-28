@@ -1,0 +1,25 @@
+// student
+
+password
+conpassword
+student_first_name
+student_last_name
+phone
+email
+city
+state
+
+// mentor
+
+password
+mentor_fast_name
+mentor_last_name
+phone
+email
+city
+state
+
+// s-m
+
+student_id 
+mentor_id 
