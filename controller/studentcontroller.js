@@ -3,6 +3,7 @@ const express = require('express');
 const { model } = require('mongoose');
 const app = express();
 const student = require('../models/student');
+const bcrypt = require('bcrypt');
 
 
 
@@ -32,8 +33,12 @@ exports.login = async (req,res)=> {
     const pass = req.body.password;
     const email = req.body.email;
     const data = await studentservice.login(email);
-    
-    if (data.password === pass) {
+
+    const isMatch = await bcrypt.compare(pass , data.password);
+
+    console.log("pass ==>>   " + pass);
+    console.log("data.password ==>>   " + data.password);
+    if (isMatch) {
         res.send(data);
     }else{
         res.send("invalid details");

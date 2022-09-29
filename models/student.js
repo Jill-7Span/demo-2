@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+
 
 const studentSchema = new mongoose.Schema({
 
     password:{
-        type:String,
-        require:true
-    },
-    conpassword:{
         type:String,
         require:true
     },
@@ -36,6 +34,17 @@ const studentSchema = new mongoose.Schema({
     }
 });
 
+studentSchema.pre("save", async function(next){
+    if (this.isModified("password")) 
+    {
+        this.password = await bcrypt.hash(this.password , 10)
+        console.log("passHash  ==>>  "+this.password);
+    }
+    next();
+})
+
 const student = new mongoose.model("student",studentSchema);
+
+
 
 module.exports = student;
